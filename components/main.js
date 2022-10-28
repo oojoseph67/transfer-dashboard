@@ -1,11 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Send from "./send";
 import Recipients from "./recipients";
 import RecentTx from "./recentTx";
 import GlobalTx from "./globalTx";
 
-const Main = () => {
+const Main = ({
+  address,
+  balance,
+  symbol,
+  decimals,
+  name,
+  contract,
+  chain,
+  transferContractAddress,
+  setTransferContractAddress,
+  explorer,
+  setExplorer,
+}) => {
   const [route, setRoute] = useState("send");
+
+  useEffect(() => {
+    Send;
+  }, [address, chain]);
 
   return (
     <div className="w-full mt-12 flex flex-col justify-center items-center">
@@ -46,13 +62,27 @@ const Main = () => {
       <div className="bg-opacity-60 pb-5 overflow-y-auto border-2 border-t-0 shadow-lg border-opacity-50 border-blue-800 rounded-b-lg w-1/2">
         {(() => {
           if (route == "send") {
-            return <Send />
+            return (
+              <Send
+                address={address}
+                balance={balance}
+                symbol={symbol}
+                name={name}
+                chain={chain}
+                decimals={decimals}
+                contract={contract}
+                transferContractAddress={transferContractAddress}
+                setTransferContractAddress={setTransferContractAddress}
+                explorer={explorer}
+                setExplorer={setExplorer}
+              />
+            );
           } else if (route == "recipients") {
-            return <Recipients></Recipients>
+            return <Recipients></Recipients>;
           } else if (route == "recentTx") {
-            return <RecentTx></RecentTx>
+            return <RecentTx></RecentTx>;
           } else if (route == "globalTx") {
-            return <GlobalTx></GlobalTx>
+            return <GlobalTx></GlobalTx>;
           }
         })()}
       </div>

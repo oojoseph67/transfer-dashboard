@@ -13,16 +13,46 @@ import {
   useContractRead,
   useContractWrite,
   useBalance,
+  useContractMetadata,
 } from "@thirdweb-dev/react";
+import { ethers } from "ethers";
 
 export default function Home() {
   const [chain, setChain] = useState("0x5");
+  const connectWithMetamask = useMetamask();
   const address = useAddress();
+  console.log("address", address);
 
   const { contract, isLoading } = useContract(
     process.env.NEXT_PUBLIC_CONTRACT_ADDRESS
-  )
-  console.log("address", address);
+  );
+  console.log("contractAddress", contract);
+  // const contractMetadata = useContractMetadata(contract);
+  // console.log("contractMetadata", useContractMetadata(contract))
+
+  const nativeToken = useBalance();
+  console.info("nativeToken", nativeToken);
+
+  const balance = nativeToken.data?.displayValue;
+  const symbol = nativeToken.data?.symbol;
+  const name = nativeToken.data?.name;
+  const decimals = nativeToken.data?.decimals;
+
+  console.log("balance", balance);
+  console.log("symbol", symbol);
+  console.log("name", name);
+  console.log("decimals", decimals);
+
+  const [transferContractAddress, setTransferContractAddress] = useState("");
+  const [explorer, setExplorer] = useState("");
+  console.log("transferContractAddress", transferContractAddress);
+  console.log("explorer", explorer)
+
+  useEffect(() => {
+    if (address) {
+      console.log("address", address);
+    }
+  }, [address]);
 
   if (isLoading) return <Loading></Loading>;
   if (!address) return <Login></Login>;
@@ -33,11 +63,27 @@ export default function Home() {
         address={address}
         chain={chain}
         setChain={setChain}
+        transferContractAddress={transferContractAddress}
+        setTransferContractAddress={setTransferContractAddress}
+        explorer={explorer}
+        setExplorer={setExplorer}
       />
       <h1 className="text-red-700 text-center">
         Welcome to the Transfer Dashboard
       </h1>
-      <Main/>
+      <Main
+        address={address}
+        balance={balance}
+        symbol={symbol}
+        name={name}
+        decimals={decimals}
+        chain={chain}
+        contract={contract}
+        transferContractAddress={transferContractAddress}
+        setTransferContractAddress={setTransferContractAddress}
+        explorer={explorer}
+        setExplorer={setExplorer}
+      />
     </div>
   );
 }

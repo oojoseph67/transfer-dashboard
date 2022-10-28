@@ -6,30 +6,60 @@ import { network } from "../utils/network";
 import {
   useDisconnect,
   useNetworkMismatch,
+  useMetamask,
   useNetwork,
+  useAddress,
+  useBalance,
+  ChainId,
 } from "@thirdweb-dev/react";
 
-const Header = ({ address, chain, setChain }) => {
+const Header = ({
+  address,
+  chain,
+  setChain,
+  transferContractAddress,
+  setTransferContractAddress,
+  explorer,
+  setExplorer,
+}) => {
   const disconnect = useDisconnect();
   const isMismatched = useNetworkMismatch(); // switch to desired chain
   const [, switchNetwork] = useNetwork();
+
+  // const balance = useBalance();
+  // console.log(`here is your balance ${balance.data?.displayValue}`);
+  // const displayBalance = balance.data?.displayValue;
 
   console.log("chain", chain);
 
   useEffect(() => {
     networkCheck();
-  }, [address, setChain]);
+  }, [address, chain]);
 
   async function networkCheck() {
-      if (chain != "0x5" && chain != "0x13881") {
-        if (chain == "0x5") {
-            switchNetwork(ChainId.Goerli);
-        }
-        if (chain == "0x13881") {
-            switchNetwork(ChainId.Mumbai);
-        }
+    if (chain == "0x5") {
+      setTransferContractAddress(
+        process.env.NEXT_PUBLIC_TRANSFER_CONTRACT_ADDRESS_GOERLI
+      );
+      setExplorer(process.env.NEXT_PUBLIC_EXPLORER_GOERLI);
+      switchNetwork(ChainId.Goerli);
+    } else if (chain == "0x13881") {
+      setTransferContractAddress(
+        process.env.NEXT_PUBLIC_TRANSFER_CONTRACT_ADDRESS_POLYGON
+      );
+      setExplorer(process.env.NEXT_PUBLIC_EXPLORER_POLYGON);
+      switchNetwork(ChainId.Mumbai);
+    } else {
+      setTransferContractAddress(
+        process.env.NEXT_PUBLIC_TRANSFER_CONTRACT_ADDRESS_GOERLI
+      );
+      setExplorer(process.env.NEXT_PUBLIC_EXPLORER_GOERLI);
+      switchNetwork(ChainId.Goerli);
     }
   }
+
+  // const balance = useBalance();
+  // console.log("balance", balance);
 
   return (
     <div className="w-full h-1/4 pt-4 flex justify-between items-start">
@@ -78,7 +108,29 @@ const Header = ({ address, chain, setChain }) => {
               },
             ]}
           />
-          {network}
+        </div>
+        {/* disconnect button */}
+        <div className="text-xl mr-2 font-sans border-opacity-60 border-2 border-blue-900 font-medium cursor-pointer bg-black px-4 py-2 text-white rounded-lg flex justify-between items-center">
+          <button onClick={disconnect}>
+            Disconnect{" "}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-box-arrow-right"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
+              />
+            </svg>
+          </button>
         </div>
       </div>
     </div>

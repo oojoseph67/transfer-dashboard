@@ -1781,7 +1781,7 @@
   resolved "https://registry.yarnpkg.com/@thirdweb-dev/contracts/-/contracts-3.1.8-0.tgz#847af3fe9a53368e7be04b7b6e6afe076d3d1676"
   integrity sha512-PiQjdRcAUBlu3poc4g6dN9KvjTgYsA1Vi+B/IgryptCgcJeMY4cldMabKCgPaCg9dPVpUq4O+SOM00P6mBNvGw==
 
-"@thirdweb-dev/react@^3.2.1":
+"@thirdweb-dev/react@^3.0.1":
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/@thirdweb-dev/react/-/react-3.4.0.tgz#9bbbc5d3dfe70988c4599482a53d48855e8212d6"
   integrity sha512-xwuHP8OYYD9n36A8ULHXDbNAQLTyrDtcO4MBbaVFDv0tcWC+QTUxCDWDhYcwWqhJhfa66bcZ9vTD81NZc9bhTg==
@@ -1806,7 +1806,7 @@
     tiny-invariant "^1.2.0"
     wagmi "^0.2.28"
 
-"@thirdweb-dev/sdk@^3.2.1":
+"@thirdweb-dev/sdk@^3.0.1":
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-3.4.0.tgz#72bd70b6ad5a04b9801c5be6ebcd7f67d67a5715"
   integrity sha512-zmVPa4lCU1yD7j73msw0c8IAGJAFNPIaypcSzn6XU/IzvT0Co3tfqhAeXjTRSWdUPV/ntA6yeStuTwjWsI16uA==
