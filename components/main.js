@@ -22,11 +22,20 @@ const Main = ({
   setRecentTx,
   saveTxLoad,
   setSaveTxLoad,
+  newBalance,
+  setNewBalance,
+  newSymbol,
+  setNewSymbol,
+  newName,
+  setNewName,
+  newDecimals,
+  setNewDecimals
 }) => {
   const [route, setRoute] = useState("send");
 
   useEffect(() => {
-    Send;
+    <Send/>
+    route === "send" ? setRoute("send") : setRoute("recipients");
   }, [address, chain]);
 
   return (
@@ -87,6 +96,14 @@ const Main = ({
                 setRecentTx={setRecentTx}
                 saveTxLoad={saveTxLoad}
                 setSaveTxLoad={setSaveTxLoad}
+                newBalance={newBalance}
+                setNewBalance={setNewBalance}
+                newSymbol={newSymbol}
+                setNewSymbol={setNewSymbol}
+                newName={newName}
+                setNewName={setNewName}
+                newDecimals={newDecimals}
+                setNewDecimals={setNewDecimals}
               />
             );
           } else if (route == "recipients") {

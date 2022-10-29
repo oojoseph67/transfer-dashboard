@@ -28,6 +28,14 @@ const Send = ({
   setRecentTx,
   saveTxLoad,
   setSaveTxLoad,
+  newBalance,
+  setNewBalance,
+  newSymbol,
+  setNewSymbol,
+  newName,
+  setNewName,
+  newDecimals,
+  setNewDecimals,
   // contract,
 }) => {
   const [showERC, setShowERC] = useState(false);
@@ -41,10 +49,10 @@ const Send = ({
   const [txLoading, setTxLoading] = useState(false);
   // const [selectToken, setSelectToken] = useState("");
 
-  const [newBalance, setNewBalance] = useState(`${balance}`);
-  const [newSymbol, setNewSymbol] = useState(`${symbol}`);
-  const [newName, setNewName] = useState(`${name}`);
-  const [newDecimals, setNewDecimals] = useState(`${decimals}`);
+  // const [newBalance, setNewBalance] = useState(`${balance}`);
+  // const [newSymbol, setNewSymbol] = useState(`${symbol}`);
+  // const [newName, setNewName] = useState(`${name}`);
+  // const [newDecimals, setNewDecimals] = useState(`${decimals}`);
 
   console.log("newBalance", newBalance);
   console.log("newSymbol", newSymbol);
@@ -56,7 +64,7 @@ const Send = ({
     setNativeTokenDetails();
     selectToken();
     chain;
-  }, [address, chain, setNewBalance, setNewSymbol, setNewName, setNewDecimals]);
+  }, [address, chain]);
 
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner(); // we can only send transaction through our signer
@@ -135,7 +143,10 @@ const Send = ({
     setTxLoading(true);
     try {
       if (tokenChanged) {
-        const tx = await ercContract.transfer(recipientAddress,ethers.utils.parseEther(amount));
+        const tx = await ercContract.transfer(
+          recipientAddress,
+          ethers.utils.parseEther(amount)
+        );
         await tx.wait();
         setCustomTokenDetails();
         setRecentTx({
@@ -144,14 +155,20 @@ const Send = ({
           to: recipientAddress,
           amount: amount,
           symbol: newSymbol,
-        })
+        });
         setShowRecentTx(true);
-        console.log(`${amount} ${newSymbol} token successfully sent to ${recipientAddress}`);
-        setMessage(`${amount} ${newSymbol} token successfully sent to ${recipientAddress}`);
+        console.log(
+          `${amount} ${newSymbol} token successfully sent to ${recipientAddress}`
+        );
+        setMessage(
+          `${amount} ${newSymbol} token successfully sent to ${recipientAddress}`
+        );
         // setMessage("Transfer Successful");
         setAmount("");
       } else {
-        const tx = await transferContract._transfer(recipientAddress, newSymbol,
+        const tx = await transferContract._transfer(
+          recipientAddress,
+          newSymbol,
           {
             value: ethers.utils.parseEther(amount),
           }
@@ -159,8 +176,12 @@ const Send = ({
         await tx.wait();
         setNativeTokenDetails();
         console.log("this is the balance after transfer", balance);
-        console.log(`${amount} ${newSymbol} native token successfully sent to ${recipientAddress}`);
-        setMessage(`${amount} ${newSymbol} native token successfully sent to ${recipientAddress}`);
+        console.log(
+          `${amount} ${newSymbol} native token successfully sent to ${recipientAddress}`
+        );
+        setMessage(
+          `${amount} ${newSymbol} native token successfully sent to ${recipientAddress}`
+        );
       }
     } catch (error) {
       setError(error.message);
@@ -172,12 +193,17 @@ const Send = ({
   async function saveTx() {
     setSaveTxLoad(true);
     try {
-      const tx = await transferContract.saveTx(recentTx.from, recentTx.to, ethers.utils.parseEther(recentTx.amount), recentTx.symbol);
+      const tx = await transferContract.saveTx(
+        recentTx.from,
+        recentTx.to,
+        ethers.utils.parseEther(recentTx.amount),
+        recentTx.symbol
+      );
       await tx.wait();
 
       setMessage("Transaction Saved Successfully");
     } catch (error) {
-      setError(error.message)
+      setError(error.message);
       console.log("error", error);
     }
     setSaveTxLoad(false);
@@ -308,30 +334,42 @@ const Send = ({
         </div>
       )}
       {/* Recent Tx Section */}
-      <div className={`${showRecentTx ? '' : 'hidden'} bg-black rounded-lg bg-opacity-60 border-2 border-blue-900 border-opacity-80 w-4/5 mt-2`}>
+      <div
+        className={`${
+          showRecentTx ? "" : "hidden"
+        } bg-black rounded-lg bg-opacity-60 border-2 border-blue-900 border-opacity-80 w-4/5 mt-2`}
+      >
         <div className="flex w-full items-center justify-center rounded-t-lg">
           <div className="w-4/6 py-2 px-2">
-            <p className="text-xl font-mono">Amount: {recentTx.amount} {recentTx.symbol}</p>
+            <p className="text-xl font-mono">
+              Amount: {recentTx.amount} {recentTx.symbol}
+            </p>
             <p className="text-xs font-mono">To: {recentTx.to}</p>
           </div>
           {saveTxLoad ? (
             <div className="flex justify-center bg-green-700 font-medium font-mono bg-opacity-80 h-full w-1/6 py-1 mr-2 rounded-md">
-              <TailSpin
-                height={12} 
-                width={12}
-                color={"#fff"}
-              />
+              <TailSpin height={12} width={12} color={"#fff"} />
             </div>
           ) : (
-            <button onClick={saveTx} className="bg-green-700 font-medium font-mono bg-opacity-80 h-full w-1/6 py-1 mr-2 rounded-md">
+            <button
+              onClick={saveTx}
+              className="bg-green-700 font-medium font-mono bg-opacity-80 h-full w-1/6 py-1 mr-2 rounded-md"
+            >
               Save
             </button>
           )}
-          <button onClick={() => setShowRecentTx(false)} className="bg-red-700 font-medium font-mono bg-opacity-80 h-full w-1/6 py-1 mr-2 rounded-md">
+          <button
+            onClick={() => setShowRecentTx(false)}
+            className="bg-red-700 font-medium font-mono bg-opacity-80 h-full w-1/6 py-1 mr-2 rounded-md"
+          >
             Ignore
           </button>
         </div>
-        <a target={'_blank'} rel="noreferrer" href={`${explorer}/tx/${recentTx.txhash}`}>
+        <a
+          target={"_blank"}
+          rel="noreferrer"
+          href={`${explorer}/tx/${recentTx.txhash}`}
+        >
           <div className="font-mono w-full rounded-b-lg bg-gray-900 text-center cursor-pointer text-opacity-30">
             View Transaction
           </div>

@@ -43,12 +43,16 @@ export default function Home() {
   console.log("name", name);
   console.log("decimals", decimals);
 
+  const [newBalance, setNewBalance] = useState();
+  const [newSymbol, setNewSymbol] = useState();
+  const [newName, setNewName] = useState();
+  const [newDecimals, setNewDecimals] = useState();
+
   const [transferContractAddress, setTransferContractAddress] = useState("");
   const [explorer, setExplorer] = useState("");
   console.log("transferContractAddress", transferContractAddress);
-  console.log("explorer", explorer)
+  console.log("explorer", explorer);
 
-  
   const [showRecentTx, setShowRecentTx] = useState(false);
   const [recentTx, setRecentTx] = useState({
     txhash: "",
@@ -63,7 +67,11 @@ export default function Home() {
     if (address) {
       console.log("address", address);
     }
-  }, [address]);
+    setNewBalance(`${balance}`);
+    setNewSymbol(`${symbol}`);
+    setNewName(`${name}`);
+    setNewDecimals(`${decimals}`);
+  }, [address, balance, symbol, name, decimals]);
 
   if (isLoading) return <Loading></Loading>;
   if (!address) return <Login></Login>;
@@ -100,6 +108,14 @@ export default function Home() {
         setRecentTx={setRecentTx}
         saveTxLoad={saveTxLoad}
         setSaveTxLoad={setSaveTxLoad}
+        newBalance={newBalance}
+        setNewBalance={setNewBalance}
+        newSymbol={newSymbol}
+        setNewSymbol={setNewSymbol}
+        newName={newName}
+        setNewName={setNewName}
+        newDecimals={newDecimals}
+        setNewDecimals={setNewDecimals}
       />
     </div>
   );
