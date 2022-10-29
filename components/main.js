@@ -16,6 +16,12 @@ const Main = ({
   setTransferContractAddress,
   explorer,
   setExplorer,
+  showRecentTx,
+  setShowRecentTx,
+  recentTx,
+  setRecentTx,
+  saveTxLoad,
+  setSaveTxLoad,
 }) => {
   const [route, setRoute] = useState("send");
 
@@ -75,6 +81,12 @@ const Main = ({
                 setTransferContractAddress={setTransferContractAddress}
                 explorer={explorer}
                 setExplorer={setExplorer}
+                showRecentTx={showRecentTx}
+                setShowRecentTx={setShowRecentTx}
+                recentTx={recentTx}
+                setRecentTx={setRecentTx}
+                saveTxLoad={saveTxLoad}
+                setSaveTxLoad={setSaveTxLoad}
               />
             );
           } else if (route == "recipients") {

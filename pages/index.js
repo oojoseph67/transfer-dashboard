@@ -48,6 +48,17 @@ export default function Home() {
   console.log("transferContractAddress", transferContractAddress);
   console.log("explorer", explorer)
 
+  
+  const [showRecentTx, setShowRecentTx] = useState(false);
+  const [recentTx, setRecentTx] = useState({
+    txhash: "",
+    from: "",
+    to: "",
+    amount: "",
+    symbol: "",
+  });
+  const [saveTxLoad, setSaveTxLoad] = useState(false);
+
   useEffect(() => {
     if (address) {
       console.log("address", address);
@@ -83,6 +94,12 @@ export default function Home() {
         setTransferContractAddress={setTransferContractAddress}
         explorer={explorer}
         setExplorer={setExplorer}
+        showRecentTx={showRecentTx}
+        setShowRecentTx={setShowRecentTx}
+        recentTx={recentTx}
+        setRecentTx={setRecentTx}
+        saveTxLoad={saveTxLoad}
+        setSaveTxLoad={setSaveTxLoad}
       />
     </div>
   );
