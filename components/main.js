@@ -29,12 +29,14 @@ const Main = ({
   newName,
   setNewName,
   newDecimals,
-  setNewDecimals
+  setNewDecimals,
+  recipientAddress,
+  setRecipientAddress,
 }) => {
   const [route, setRoute] = useState("send");
 
   useEffect(() => {
-    <Send/>
+    <Send />;
     route === "send" ? setRoute("send") : setRoute("recipients");
   }, [address, chain]);
 
@@ -104,10 +106,19 @@ const Main = ({
                 setNewName={setNewName}
                 newDecimals={newDecimals}
                 setNewDecimals={setNewDecimals}
+                recipientAddress={recipientAddress}
+                setRecipientAddress={setRecipientAddress}
               />
             );
           } else if (route == "recipients") {
-            return <Recipients></Recipients>;
+            return (
+              <Recipients
+                address={address}
+                transferContractAddress={transferContractAddress}
+                recipientAddress={recipientAddress}
+                setRecipientAddress={setRecipientAddress}
+              />
+            );
           } else if (route == "recentTx") {
             return <RecentTx></RecentTx>;
           } else if (route == "globalTx") {

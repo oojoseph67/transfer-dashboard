@@ -6,14 +6,8 @@ import Loading from "../components/loading";
 import {
   useContract,
   useMetamask,
-  useDisconnect,
   useAddress,
-  useContractData,
-  useContractCall,
-  useContractRead,
-  useContractWrite,
   useBalance,
-  useContractMetadata,
 } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
 
@@ -52,6 +46,8 @@ export default function Home() {
   const [explorer, setExplorer] = useState("");
   console.log("transferContractAddress", transferContractAddress);
   console.log("explorer", explorer);
+
+  const [recipientAddress, setRecipientAddress] = useState("");
 
   const [showRecentTx, setShowRecentTx] = useState(false);
   const [recentTx, setRecentTx] = useState({
@@ -116,6 +112,8 @@ export default function Home() {
         setNewName={setNewName}
         newDecimals={newDecimals}
         setNewDecimals={setNewDecimals}
+        recipientAddress={recipientAddress}
+        setRecipientAddress={setRecipientAddress}
       />
     </div>
   );

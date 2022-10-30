@@ -36,13 +36,15 @@ const Send = ({
   setNewName,
   newDecimals,
   setNewDecimals,
+  recipientAddress,
+  setRecipientAddress,
   // contract,
 }) => {
   const [showERC, setShowERC] = useState(false);
   const [ercLoading, setERCLoading] = useState(false);
   const [tokenChanged, setTokenChanged] = useState(false);
   const [ercTokenAddress, setERCTokenAddress] = useState("");
-  const [recipientAddress, setRecipientAddress] = useState("");
+  // const [recipientAddress, setRecipientAddress] = useState("");
   const [amount, setAmount] = useState("");
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
