@@ -114,13 +114,20 @@ const Main = ({
             return (
               <Recipients
                 address={address}
-                transferContractAddress={transferContractAddress}
                 recipientAddress={recipientAddress}
+                transferContractAddress={transferContractAddress}
                 setRecipientAddress={setRecipientAddress}
               />
             );
           } else if (route == "recentTx") {
-            return <RecentTx></RecentTx>;
+            return (
+              <RecentTx
+                address={address}
+                explorer={explorer}
+                setExplorer={setExplorer}
+                transferContractAddress={transferContractAddress}
+              />
+            );
           } else if (route == "globalTx") {
             return <GlobalTx></GlobalTx>;
           }
