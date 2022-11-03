@@ -129,7 +129,14 @@ const Main = ({
               />
             );
           } else if (route == "globalTx") {
-            return <GlobalTx></GlobalTx>;
+            return (
+              <GlobalTx
+                address={address}
+                explorer={explorer}
+                setExplorer={setExplorer}
+                transferContractAddress={transferContractAddress}
+              />
+            );
           }
         })()}
       </div>
